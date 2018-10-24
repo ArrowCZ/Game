@@ -15,7 +15,7 @@ end
 
 function love.draw()
 
-	button.draw(100,100,50,50,"Ahoj")
+	button.new(100,100,200,100,"Ahoj Evi dis working now 2131651641616")
 
 
 end
