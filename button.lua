@@ -20,7 +20,7 @@ local Button = {}
 
 
 	
-	function Button.newOpaque(x,y,w,h,text,color,fontcolor,hover,action,name)
+	function Button.new(x,y,w,h,text,color,fontcolor,hover,action,name)
 		
 		buttons[index] = {}
 		
@@ -44,9 +44,9 @@ local Button = {}
 	
 			if newx >= buttons[index][3] and newx <= buttons[index][3] + buttons[index][1] and newy >= buttons[index][4] and newy <= buttons[index][4] + buttons[index][2] then
 				color = hover
-				Button.drawOpaque(x,y,w,h,text,color,fontcolor)
+				Button.draw(x,y,w,h,text,color,fontcolor)
 			
-			else Button.drawOpaque(x,y,w,h,text,color,fontcolor)
+			else Button.draw(x,y,w,h,text,color,fontcolor)
 			
 			end
 		
@@ -54,26 +54,6 @@ local Button = {}
 	
 	end
 	
-	function Button.newClear(x,y,w,h,text,fontcolor,action,name)
-		
-		buttons[index] = {}
-		
-		buttons[index][1] = w
-		buttons[index][2] = h
-		buttons[index][3] = x
-		buttons[index][4] = y
-		buttons[index][5] = action
-		buttons[index][6] = name
-		
-		if fontcolor == nil then 
-			fontcolor = "000000"
-		end
-	
-		Button.drawClear(x,y,w,h,text,fontcolor)
-
-		checkindex(name)
-		
-	end
 	
 	function Button.update()
 	
@@ -110,24 +90,13 @@ local Button = {}
 	
 	end
 	
-	function Button.drawOpaque(x,y,w,h,text,color,fontcolor)
-	
-	
+	function Button.draw(x,y,w,h,text,color,fontcolor)
 	
 	
 		love.graphics.setColor(hex(color))	
 		
 		love.graphics.rectangle("fill", x, y, w, h )
 		 love.graphics.setFont(font)
-		love.graphics.setColor(hex(fontcolor))	
-		love.graphics.printf(text,x, y + h/2 - font:getHeight() / 2 , w,"center")
-	
-	end
-	
-	function Button.drawClear(x,y,w,h,text,fontcolor)
-	
-	
-		love.graphics.setFont(font)
 		love.graphics.setColor(hex(fontcolor))	
 		love.graphics.printf(text,x, y + h/2 - font:getHeight() / 2 , w,"center")
 	
@@ -147,7 +116,7 @@ local Button = {}
 	
 	
 	function Button.action(i)
-		--print(buttons[i][6])
+		print(index)
 		return buttons[i][5]() or nil
 	
 	end
