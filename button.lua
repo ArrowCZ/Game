@@ -6,9 +6,8 @@
 -- H - vyska
 -- text - text co bude v buttonu
 -- action - funkce co se zavola po kliknuti
--- color - barva pozadi (hex)
--- fontcolor - barva fontu (hex)
--- hover - barva pri hoveru (hex)
+-- color - barva pozadi
+-- fontcolor - barva fontu
 
 font = love.graphics.newFont("fonts/bebasneueregular.ttf", 30)
 
@@ -50,7 +49,11 @@ local Button = {}
 			
 			
 		  end
-			
+		
+		
+	
+		
+		
 	
 	end
 	
@@ -85,24 +88,16 @@ local Button = {}
 	
 	end
 	
-		function Button.mousepressed( x, y, button)
+		function love.mousepressed( x, y, button)
 		
-			if button == 1 then
-		
-				if x >= offx and x <= offx + width and y >= offy and y <= offy + height then
-				
-					--print("succes")
-					Button.action()
-				
-				end
+			if x >= offx and x <= offx + width and y >= offy and y <= offy + height then
+			
+				--print("succes")
+				Button.action()
+			
 			end
 		
 		end
-		
-		
-		
-		
-
 	
 	
 	function Button.action()
