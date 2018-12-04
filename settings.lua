@@ -8,13 +8,33 @@ local Smallfont = love.graphics.newFont("fonts/bebasneueregular.ttf", 20)
 local button = require("button")
 local warning = require("warning")
 local textbutton = require("textbutton")
+local saveData = require("saveData")
+
 
 local mousex, mousey
 
-
+local full_state
 
 function Settings.load()
+	
+	save_values = {}
+	if love.filesystem.load("settings") == nil then
+	
+		save_values.fullscreen = false 
+		full_state = "OFF"
+	else 
+		local first_sett = saveData.load("settings")
+		save_values.fullscreen = first_sett.fullscreen
+	end
 
+	
+	if (save_values.fullscreen == false) then
+		full_state = "OFF"
+		else full_state = "ON"
+	end
+	
+	
+	
 
 	gamestate = "settings"
 	background = love.graphics.newImage("images/background.jpg")
@@ -51,11 +71,9 @@ function Settings.draw()
 
 	love.graphics.setFont(Bigfont)
 	love.graphics.print("SETTINGS",WindowWidth / 4 - (Bigfont:getWidth( "SETTINGS" ) / 2) ,WindowHeight / 8)
+
+		textbutton.new(WindowWidth / 4 - Mediumfont:getWidth("Fullscreen: ON") / 2,WindowHeight / 2.8,"Fullscreen: ".. tostring(full_state) .. "","ffffff","888888",fullscreen,"enable")
 		
-			if love.filesystem.read("fullscreen.txt") == "true" then
-				textbutton.new(WindowWidth / 4 - Mediumfont:getWidth("Disable Fullscreen") / 2,WindowHeight / 2.8,"Disable Fullscreen","ffffff","888888",fullscreen,"enable")
-				else textbutton.new(WindowWidth / 4 - Mediumfont:getWidth("Enable Fullscreen") / 2,WindowHeight / 2.8,"Enable Fullscreen","ffffff","888888",fullscreen,"enable")
-			end
 end
 
 
@@ -63,13 +81,23 @@ function fullscreen()
 
 	--write the requested changes to a file, so that we can apply that once we restart the client.
 	
-	if love.filesystem.read("fullscreen.txt") == "true" then
+		
+		save_values.fullscreen = not save_values.fullscreen
+		
+		if full_state == "OFF" then full_state = "ON" 
+			else full_state = "OFF"
+		end
 	
-	 succes,message = love.filesystem.write( "fullscreen.txt", "false" )
-	 else   succes,message =love.filesystem.write( "fullscreen.txt", "true" )
-			
-	 end
-	print(success, message)
+		
+		--saveData.save(save_values, "settings")
+		--print(save_values.fullscreen)
+		
+		--Hodnoty budeme ukladat az tlacitkem "save settings", protoze se vzdy ukladanim hodnot prepise soubor settings. 
+		
+		
+		--local t2 = saveData.load("settings")
+		--print("NEW:".. tostring(t2.fullscreen).. "")
+		--print(save_values.fullscreen, full_state)
 	
 
 end

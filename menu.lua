@@ -6,6 +6,7 @@ local Smallfont = love.graphics.newFont("fonts/bebasneueregular.ttf", 20)
 
 local button = require("button")
 local textbutton = require("textbutton")
+local sett = require("settings")
 
 local mousex, mousey
 
@@ -73,6 +74,7 @@ end
 function settings()
 
 	gamestate = "settings"
+	sett.load()
 
 end
 

@@ -1,19 +1,25 @@
 
 
 local menu = require("menu")
-local settings = require("settings")
+local sett = require("settings")
 local button = require("button")
 local textbutton = require("textbutton")
-
+local saveData = require("saveData")
 
 
 function love.load()
 
 	--Initialize settings
-	 local isfus = love.filesystem.read( "fullscreen.txt" )
-	 if isfus == "true"  then love.window.setFullscreen(true, "desktop")
-		else  love.window.setFullscreen(false, "desktop")
+	if love.filesystem.load("settings") == nil then
+		else
+		
+		 local isfus = saveData.load("settings")
+		 if isfus.fullscreen == true then love.window.setFullscreen(true, "desktop")
+			else  love.window.setFullscreen(false, "desktop")
+		 end
+		
 	 end
+	 --Initialize settings
 
 	gamestate = "menu"
 	menu.load() -- First load the menu
@@ -32,7 +38,7 @@ function love.update(dt)
 	end
 	if gamestate == "settings" then
 	
-		settings.update(dt)
+		sett.update(dt)
 		
 	end
 
@@ -58,7 +64,7 @@ function love.draw()
 	end
 	if gamestate == "settings" then
 	
-		settings.draw()	
+		sett.draw()	
 		
 	end
 	
