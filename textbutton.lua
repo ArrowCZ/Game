@@ -17,7 +17,7 @@ local TextButton = {}
 	local index = 1
 	local buttons = {}
 
-	function TextButton.new(x,y,text,color,hover,action,name)
+	function TextButton.new(x,y,text,color,hover,action,name,state)
 		
 		
 		love.graphics.setFont(Textfont)
@@ -30,7 +30,7 @@ local TextButton = {}
 		buttons[index][4] = y
 		buttons[index][5] = action
 		buttons[index][6] = name
-		
+		buttons[index][7] = state
 		
 		if color == nil then 
 			color = "000000"
@@ -97,14 +97,17 @@ local TextButton = {}
 	
 	function love.mousepressed( x, y, button)
 			
-			for i = 1, (index-1) do
-			if x >= buttons[i][3] and x <= buttons[i][3] + buttons[i][1] and y >= buttons[i][4] and y <= buttons[i][4] + buttons[i][2] then
 			
-				--print(index)
-				TextButton.action(i)
-			end
-			end
-		
+			
+				for i = 1, (index-1) do
+					if x >= buttons[i][3] and x <= buttons[i][3] + buttons[i][1] and y >= buttons[i][4] and y <= buttons[i][4] + buttons[i][2] then
+					
+						--print(index)
+						TextButton.action(i)
+					end
+				end
+				
+			
 	end
 	
 	function TextButton.action(i)

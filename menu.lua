@@ -7,9 +7,9 @@ local Smallfont = love.graphics.newFont("fonts/bebasneueregular.ttf", 20)
 local button = require("button")
 local textbutton = require("textbutton")
 local sett = require("settings")
+local game = require("game")
 
 local mousex, mousey
-
 
 
 function Menu.load()
@@ -61,7 +61,12 @@ end
 
 function newgame()
 
-	print("newgame")
+	--**START A NEW GAME**--
+	
+		gamestate = "game" --Changing the main game loop gamestate
+		print("New game started, save override")
+		game.load()
+	
 
 end
 
